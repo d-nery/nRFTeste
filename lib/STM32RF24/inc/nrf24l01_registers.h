@@ -1,5 +1,7 @@
 // https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf
 
+#include <stdint.h>
+
 typedef enum nrf24l01_spi_commands {
     NRF24L01_COMM_R_REGISTER = 0x00,
     NRF24L01_COMM_W_REGISTER = 0x20,
@@ -77,6 +79,7 @@ typedef enum nrf24l01_registers {
 #define FEATURE 0x1D
 
 /* Bit Mnemonics */
+//curto cajado melado
 #define MASK_RX_DR 6
 #define MASK_TX_DS 5
 #define MASK_MAX_RT 4
@@ -150,3 +153,200 @@ typedef enum nrf24l01_registers {
 #define RF_DR_HIGH 3
 #define RF_PWR_LOW 1
 #define RF_PWR_HIGH 2
+
+typedef union nrf24l01_reg_config {
+    uint8_t value;
+    struct {
+        uint8_t prim_rx : 1;
+        uint8_t pwr_up : 1;
+        uint8_t crco : 1;
+        uint8_t en_crc : 1;
+        uint8_t mask_max_rt : 1;
+        uint8_t mask_tx_ds : 1;
+        uint8_t mask_rx_dr : 1;
+        uint8_t _reserved : 1;
+    };
+} nrf24l01_reg_config_t;
+
+typedef union nrf24l01_reg_en_aa {
+    uint8_t value;
+    struct {
+        uint8_t enaa_p0 : 1;
+        uint8_t enaa_p1 : 1;
+        uint8_t enaa_p2 : 1;
+        uint8_t enaa_p3 : 1;
+        uint8_t enaa_p4 : 1;
+        uint8_t enaa_p5 : 1;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_en_aa_t;
+
+typedef union nrf24l01_reg_en_rxaddr {
+    uint8_t value;
+    struct {
+        uint8_t erx_p0 : 1;
+        uint8_t erx_p1 : 1;
+        uint8_t erx_p2 : 1;
+        uint8_t erx_p3 : 1;
+        uint8_t erx_p4 : 1;
+        uint8_t erx_p5 : 1;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_en_rxaddr_t;
+
+typedef union nrf24l01_reg_setup_aw {
+    uint8_t value;
+    struct {
+        uint8_t aw : 2;
+        uint8_t _reserved : 5;
+    };
+} nrf24l01_reg_setup_aw_t;
+
+typedef union nrf24l01_reg_setup_retr {
+    uint8_t value;
+    struct {
+        uint8_t arc : 4;
+        uint8_t ard : 4;
+    };
+} nrf24l01_reg_setup_retr_t;
+
+typedef union nrf24l01_reg_rf_ch {
+    uint8_t value;
+    struct {
+        uint8_t rf_ch : 7;
+        uint8_t _reserved : 1;
+    };
+} nrf24l01_reg_rf_ch_t;
+
+typedef union nrf24l01_reg_rf_setup {
+    uint8_t value;
+    struct {
+        uint8_t obsolete : 1;
+        uint8_t rf_pwr : 2;
+        uint8_t rf_dr_high : 1;
+        uint8_t pll_lock : 1;
+        uint8_t rf_dr_low : 1;
+        uint8_t _reserved : 1;
+        uint8_t cont_wave : 1;
+    };
+} nrf24l01_reg_rf_setup_t;
+
+typedef union nrf24l01_reg_status {
+    uint8_t value;
+    struct {
+        uint8_t tx_full : 1;
+        uint8_t rx_p_no : 3;
+        uint8_t max_rt : 1;
+        uint8_t tx_ds : 1;
+        uint8_t rx_dr : 1;
+        uint8_t _reserved : 1;
+    };
+} nrf24l01_reg_status_t;
+
+typedef union nrf24l01_reg_observe_tx {
+    uint8_t value;
+    struct {
+        uint8_t arc_cnt : 4;
+        uint8_t plos_cnt : 4;
+    };
+} nrf24l01_reg_observe_tx_t;
+
+typedef union nrf24l01_reg_rpd {
+    uint8_t value;
+    struct {
+        uint8_t rpd : 1;
+        uint8_t _reserved : 7;
+    };
+} nrf24l01_reg_rpd_t;
+
+typedef union nrf24l01_reg_5byte_addr {
+    uint8_t value[5];
+} nrf24l01_reg_5byte_addr_t;
+
+typedef union nrf24l01_reg_1byte_addr {
+    uint8_t value;
+} nrf24l01_reg_1byte_addr_t;
+
+typedef union nrf24l01_reg_rx_pw_p0 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p0 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p0_t;
+
+typedef union nrf24l01_reg_rx_pw_p1 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p1 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p1_t;
+
+typedef union nrf24l01_reg_rx_pw_p2 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p2 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p2_t;
+
+typedef union nrf24l01_reg_rx_pw_p3 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p3 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p3_t;
+
+typedef union nrf24l01_reg_rx_pw_p4 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p4 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p4_t;
+
+typedef union nrf24l01_reg_rx_pw_p5 {
+    uint8_t value;
+    struct {
+        uint8_t rx_pw_p5 : 6;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_rx_pw_p5_t;
+
+typedef union nrf24l01_reg_fifo_status {
+    uint8_t value;
+    struct {
+        uint8_t rx_empty : 1;
+        uint8_t rx_full : 1;
+        uint8_t _reserved : 2;
+        uint8_t tx_empty : 1;
+        uint8_t tx_full : 1;
+        uint8_t tx_reuse : 1;
+        uint8_t __reserved : 1;
+    };
+} nrf24l01_reg_fifo_status_t;
+
+typedef union nrf24l01_reg_dynpd {
+    uint8_t value;
+    struct {
+        uint8_t dpl_p0 : 1;
+        uint8_t dpl_p1 : 1;
+        uint8_t dpl_p2 : 1;
+        uint8_t dpl_p3 : 1;
+        uint8_t dpl_p4 : 1;
+        uint8_t dpl_p5 : 1;
+        uint8_t _reserved : 2;
+    };
+} nrf24l01_reg_dynpd_t;
+
+typedef union nrf24l01_reg_feature {
+    uint8_t value;
+    struct {
+        uint8_t en_dyn_ack : 1;
+        uint8_t en_ack_pay : 1;
+        uint8_t en_dpl : 1;
+        uint8_t _reserved : 5;
+    };
+} nrf24l01_reg_feature_t;

@@ -137,7 +137,7 @@ CFLAGS  :=                                  \
 ifeq ($(DEBUG),1)
 ASFLAGS += -g
 CFLAGS  += -g3
-CDEFS += -DDEBUG
+CFLAGS  += -DDEBUG
 endif
 
 # Linker Flags
@@ -262,6 +262,9 @@ flash load:
 jflash: .jlink-flash
 	@echo "Flashing $(PROJECT_NAME).hex with J-Link"
 	$(AT)$(JLINK_EXE) $<
+
+rtt:
+	$(AT)JLinkGDBServer -device $(DEVICE) -nohalt -if SWD -speed 1000 -port 2331 -vd -singlerun -timeout 0 -nogui > /dev/null
 
 # Show MCU info
 info:

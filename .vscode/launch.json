@@ -1,4 +1,8 @@
 {
+    "env": {
+        "project": "nrfteste"
+    },
+
     "version": "0.2.0",
     "configurations": [
 
@@ -12,15 +16,15 @@
                 "miDebuggerPath": "${env:ARM_GCC_PATH}/arm-none-eabi-gdb.exe",
             },
             "targetArchitecture": "arm",
-            "program": "${workspaceRoot}/build/stm32_project_template.elf",
+            "program": "${workspaceRoot}/build/${project}.elf",
             "setupCommands": [{
-                    "text": "file '${workspaceRoot}/build/stm32_project_template.elf'"
+                    "text": "file '${workspaceRoot}/build/${project}.elf'"
                 },
                 {
                     "text": "target extended-remote localhost:4242"
                 },
                 {
-                    "text": "load ${workspaceRoot}/build/stm32_project_template.elf"
+                    "text": "load ${workspaceRoot}/build/${project}.elf"
                 }
             ],
             "launchCompleteCommand": "None",
@@ -31,7 +35,7 @@
             "type": "gnu-debugger",
             "request": "launch",
             "name": "GNU debugger",
-            "program": "${workspaceFolder}/build/stm32_project_template.elf",
+            "program": "${workspaceFolder}/build/${project}.elf",
             "toolchain": "${env:ARM_GCC_PATH}",
             "client": "arm-none-eabi-gdb",
             "server": "JLinkGDBServer",
@@ -53,7 +57,7 @@
             "request": "launch",
             "servertype": "stutil",
             "cwd": "${workspaceRoot}",
-            "executable": "./build/stm32_project_template.elf",
+            "executable": "./build/${project}.elf",
             "name": "Cortex Debug (ST-Util)",
             "device": "STM32F303RE",
             "v1": false
@@ -63,7 +67,7 @@
             "request": "launch",
             "servertype": "jlink",
             "cwd": "${workspaceRoot}",
-            "executable": "./build/stm32_project_template.elf",
+            "executable": "./build/${project}.elf",
             "name": "Cortex Debug (J-Link)",
             "device": "STM32F303RE",
             "interface": "swd",

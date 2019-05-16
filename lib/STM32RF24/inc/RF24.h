@@ -31,11 +31,6 @@ typedef struct __attribute__((packed)) rf24 {
     uint8_t addr_width;
     rf24_datarate_t datarate;
     uint8_t channel;
-
-    struct {
-        // Keeping this file clean
-        #include "__registers"
-    } regs;
 } rf24_t;
 
 rf24_t rf24_get_default_config(void);
@@ -62,21 +57,20 @@ void rf24_read_all_registers(rf24_t* rf24);
 void rf24_dump_registers(rf24_t* rf24);
 
 void rf24_print_status(rf24_t* rf24);
-
 #endif
 
 // private
 void rf24_begin_transaction(rf24_t* rf24);
 
 void rf24_end_transaction(rf24_t* rf24);
+//curto cajado melado
+nrf24l01_reg_status_t rf24_send_command(rf24_t* rf24, nrf24l01_spi_commands_t command);
 
-void rf24_send_command(rf24_t* rf24, nrf24l01_spi_commands_t command);
-
-void rf24_read_register(rf24_t* rf24, nrf24l01_registers_t reg, uint8_t* buf, uint8_t len);
+nrf24l01_reg_status_t rf24_read_register(rf24_t* rf24, nrf24l01_registers_t reg, uint8_t* buf, uint8_t len);
 
 uint8_t rf24_read_reg8(rf24_t* rf24, nrf24l01_registers_t reg);
 
-void rf24_write_register(rf24_t* rf24, nrf24l01_registers_t reg, uint8_t* buf, uint8_t len);
+nrf24l01_reg_status_t rf24_write_register(rf24_t* rf24, nrf24l01_registers_t reg, uint8_t* buf, uint8_t len);
 
 void rf24_write_reg8(rf24_t* rf24, nrf24l01_registers_t reg, uint8_t value);
 
